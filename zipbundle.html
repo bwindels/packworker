@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<script type="text/javascript">
+			async function installAndReady(src) {
+				const sw = navigator.serviceWorker;
+				if (!sw) return;
+				try {
+					await sw.register(src);
+					await sw.ready;
+					return sw.controller;
+				} catch(err) {}
+			}
+			installAndReady("./zip-sw.js").then((sw) => {
+				if (sw) {
+					console.log("service worker is ready to intercept our requests");
+				} else {
+					console.log("no sw, we'll just trigger individual requests for our modules and hope we are on http2");
+				}
+				// import() is not yet supported on firefox
+				const script = document.createElement("script");
+				script.setAttribute("type", "module");
+				script.setAttribute("src", "./bar.js");
+				document.head.appendChild(script);
+			});
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

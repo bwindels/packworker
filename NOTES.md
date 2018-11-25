@@ -1,0 +1,1 @@
+it's probably easy to add other files to the zip. this would make it possible to have several build processes adding to the same bundle, making it easier to integrate packages within a bigger project if needed. (e.g. a distribution of a given project adding extra stylesheets, images, ...)
